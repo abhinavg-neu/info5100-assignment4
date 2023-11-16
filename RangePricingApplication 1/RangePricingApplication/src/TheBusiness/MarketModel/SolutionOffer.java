@@ -14,6 +14,15 @@ import TheBusiness.SolutionOrders.SolutionOrder;
  * @author kal bugrara
  */
 public class SolutionOffer {
+    String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     ArrayList<Product> products;
     int price;//floor, ceiling, and target ideas
     String ad;

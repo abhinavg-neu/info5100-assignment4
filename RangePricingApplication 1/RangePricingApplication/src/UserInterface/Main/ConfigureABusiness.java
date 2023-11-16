@@ -23,6 +23,9 @@ import TheBusiness.Supplier.Supplier;
 import TheBusiness.Supplier.SupplierDirectory;
 import TheBusiness.UserAccountManagement.UserAccount;
 import TheBusiness.UserAccountManagement.UserAccountDirectory;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  *
@@ -30,32 +33,68 @@ import TheBusiness.UserAccountManagement.UserAccountDirectory;
  */
 class ConfigureABusiness {
 
-    static Business initialize() {
+    static Business initialize() throws FileNotFoundException {
         Business business = new Business("Xerox");
         SupplierDirectory suplierdirectory = business.getSupplierDirectory();
 
-        Supplier supplier1 = suplierdirectory.newSupplier("Lenovo");
-        ProductCatalog productcatalog = supplier1.getProductCatalog();
-        Product products1p1 = productcatalog.newProduct("Scanner 3  1", 2000, 16500, 10000);
-        Product products1p2 = productcatalog.newProduct("Scanner 4", 10000, 25000, 16500);
-        Product products1p3 = productcatalog.newProduct("Printer 2", 22000, 40000, 36500);
-        Product products1p4 = productcatalog.newProduct("Photocopier 2 ", 30000, 70000, 50000);
-        Product products1p5 = productcatalog.newProduct("Scanner  5", 19000, 36500, 25000);
-        Product products1p6 = productcatalog.newProduct("Scanner 6", 90000, 125000, 105000);
-        Product products1p7 = productcatalog.newProduct("Printer 3", 22000, 60000, 36500);
-        Product products1p8 = productcatalog.newProduct("Photocopier 3", 30000, 70000, 50000);
+        Supplier supplier1 =null;
+        ProductCatalog productcatalog = null;
+        //read products from a file
+        String productPath = "SUPPLIER-Sheet1.csv";
+        File file = new File(productPath);
+        try(Scanner scanner = new Scanner(file)) {
+            while(scanner.hasNextLine()) {
+                String nextLine = scanner.nextLine();
+                String[] lineColumns= nextLine.split(",");
+               if(lineColumns[0].isBlank()){
+//                   System.out.println("blank");
+         supplier1 = suplierdirectory.newSupplier(lineColumns[2]);
+          productcatalog = supplier1.getProductCatalog();
+        
+               } else {
+                 Product products1p1 = productcatalog.newProduct(lineColumns[0],
+                         Integer.parseInt(lineColumns[1]),
+                         Integer.parseInt(lineColumns[2]),
+                         Integer.parseInt(lineColumns[3]));
+        
+               }
+                System.out.println("Finished");               
+            }
+            
+     //Archive code       
+//        String productPath = "SUPPLIER-Sheet1.csv";
+//        File file = new File(productPath);
+//        try(Scanner scanner = new Scanner(file)) {
+//            while(scanner.hasNextLine()) {
+//                String nextLine = scanner.nextLine();
+//                String[] lineColumns= nextLine.split(",");
+//                int pos = 0;
+//                for(String line: lineColumns) {
+//                    System.out.print(": Column"+pos+": "+line);
+//                    pos++;
+//                }
+//                System.out.println("");
+//            }     
+        }
+//        Product products1p2 = productcatalog.newProduct("Scanner 4", 10000, 25000, 16500);
+//        Product products1p3 = productcatalog.newProduct("Printer 2", 22000, 40000, 36500);
+//        Product products1p4 = productcatalog.newProduct("Photocopier 2 ", 30000, 70000, 50000);
+//        Product products1p5 = productcatalog.newProduct("Scanner  5", 19000, 36500, 25000);
+//        Product products1p6 = productcatalog.newProduct("Scanner 6", 90000, 125000, 105000);
+//        Product products1p7 = productcatalog.newProduct("Printer 3", 22000, 60000, 36500);
+//        Product products1p8 = productcatalog.newProduct("Photocopier 3", 30000, 70000, 50000);
 
         //       SupplierDirectory suplierdirectory = business.getSupplierDirectory();
-        Supplier supplier2 = suplierdirectory.newSupplier("Epson");
-        productcatalog = supplier2.getProductCatalog();
-        Product products2p1 = productcatalog.newProduct("Scanner 13  1", 12000, 26000, 18500);
-        Product products2p2 = productcatalog.newProduct("Scanner 14", 90000, 165000, 125000);
-        Product products2p3 = productcatalog.newProduct("Color Printer 112", 422000, 540000, 495000);
-        Product products2p4 = productcatalog.newProduct("Photocopier 922 ", 430000, 890000, 550000);
-        Product products2p5 = productcatalog.newProduct("Low toner Scanner  102", 195000, 500100, 365102);
-        Product products2p6 = productcatalog.newProduct("Speedy color Scanner 611", 900000, 125000, 1650000);
-        Product products2p7 = productcatalog.newProduct("Premier Printer 300", 322000, 470000, 736500);
-        Product products2p8 = productcatalog.newProduct("Color Photocopier 500", 350000, 580000, 780000);
+//        Supplier supplier2 = suplierdirectory.newSupplier("Epson");
+//        productcatalog = supplier2.getProductCatalog();
+//        Product products2p1 = productcatalog.newProduct("Scanner 13  1", 12000, 26000, 18500);
+//        Product products2p2 = productcatalog.newProduct("Scanner 14", 90000, 165000, 125000);
+//        Product products2p3 = productcatalog.newProduct("Color Printer 112", 422000, 540000, 495000);
+//        Product products2p4 = productcatalog.newProduct("Photocopier 922 ", 430000, 890000, 550000);
+//        Product products2p5 = productcatalog.newProduct("Low toner Scanner  102", 195000, 500100, 365102);
+//        Product products2p6 = productcatalog.newProduct("Speedy color Scanner 611", 900000, 125000, 1650000);
+//        Product products2p7 = productcatalog.newProduct("Premier Printer 300", 322000, 470000, 736500);
+//        Product products2p8 = productcatalog.newProduct("Color Photocopier 500", 350000, 580000, 780000);
 
 // Create Persons
         PersonDirectory persondirectory = business.getPersonDirectory();
@@ -101,24 +140,24 @@ class ConfigureABusiness {
 // Process Orders on behalf of sales person and customer
         MasterOrderList masterorderlist = business.getMasterOrderList();
         Order order1 = masterorderlist.newOrder(customerprofile4, salespersonprofile);
-        OrderItem oi1 = order1.newOrderItem(products1p1, 18000, 1);
-        OrderItem oi2 = order1.newOrderItem(products1p2, 19500, 4);
-        OrderItem oi3 = order1.newOrderItem(products1p3, 36500, 10);
-        OrderItem oi4 = order1.newOrderItem(products1p4, 50000, 1);
-        OrderItem oi5 = order1.newOrderItem(products1p5, 25000, 3);
-        OrderItem oi6 = order1.newOrderItem(products1p6, 105000, 2);
-        OrderItem oi7 = order1.newOrderItem(products1p7, 36500, 3);
-        OrderItem oi8 = order1.newOrderItem(products1p8, 50000, 2);
-
-        Order order12 = masterorderlist.newOrder(customerprofile4, salespersonprofile);
-        OrderItem oi112 = order1.newOrderItem(products1p1, 17000, 1);
-        OrderItem oi12 = order1.newOrderItem(products1p2, 9500, 4);
-        OrderItem oi13 = order1.newOrderItem(products1p3, 29500, 10);
-        OrderItem oi14 = order1.newOrderItem(products1p4, 30000, 1);
-        OrderItem oi15 = order1.newOrderItem(products1p5, 2000, 3);
-        OrderItem oi16 = order1.newOrderItem(products1p6, 95000, 2);
-        OrderItem oi17 = order1.newOrderItem(products1p7, 26500, 3);
-        OrderItem oi18 = order1.newOrderItem(products1p8, 40000, 2);
+//        OrderItem oi1 = order1.newOrderItem(products1p1, 18000, 1);
+//        OrderItem oi2 = order1.newOrderItem(products1p2, 19500, 4);
+//        OrderItem oi3 = order1.newOrderItem(products1p3, 36500, 10);
+//        OrderItem oi4 = order1.newOrderItem(products1p4, 50000, 1);
+//        OrderItem oi5 = order1.newOrderItem(products1p5, 25000, 3);
+//        OrderItem oi6 = order1.newOrderItem(products1p6, 105000, 2);
+//        OrderItem oi7 = order1.newOrderItem(products1p7, 36500, 3);
+//        OrderItem oi8 = order1.newOrderItem(products1p8, 50000, 2);
+//
+//        Order order12 = masterorderlist.newOrder(customerprofile4, salespersonprofile);
+//        OrderItem oi112 = order1.newOrderItem(products1p1, 17000, 1);
+//        OrderItem oi12 = order1.newOrderItem(products1p2, 9500, 4);
+//        OrderItem oi13 = order1.newOrderItem(products1p3, 29500, 10);
+//        OrderItem oi14 = order1.newOrderItem(products1p4, 30000, 1);
+//        OrderItem oi15 = order1.newOrderItem(products1p5, 2000, 3);
+//        OrderItem oi16 = order1.newOrderItem(products1p6, 95000, 2);
+//        OrderItem oi17 = order1.newOrderItem(products1p7, 26500, 3);
+//        OrderItem oi18 = order1.newOrderItem(products1p8, 40000, 2);
 
         return business;
 

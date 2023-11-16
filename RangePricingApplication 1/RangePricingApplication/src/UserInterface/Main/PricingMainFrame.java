@@ -7,6 +7,7 @@ package UserInterface.Main;
 
 import MarketingManagement.MarketingPersonProfile;
 import TheBusiness.Business.Business;
+import TheBusiness.MarketModel.Market;
 import TheBusiness.Personnel.EmployeeProfile;
 import TheBusiness.Personnel.Profile;
 import TheBusiness.SalesManagement.SalesPersonProfile;
@@ -15,6 +16,9 @@ import TheBusiness.UserAccountManagement.UserAccountDirectory;
 import UserInterface.Main.WorkSpaceProfiles.BusinessManagerWorkAreaJPanel;
 import UserInterface.Main.WorkSpaceProfiles.MarketingManagerWorkAreaJPanel1;
 import UserInterface.Main.WorkSpaceProfiles.SalesPersonWorkAreaJPanel;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
@@ -31,12 +35,17 @@ public class PricingMainFrame extends javax.swing.JFrame {
 
     public PricingMainFrame() {
         initComponents();
-        business = ConfigureABusiness.initialize();
+        setSize(1200,800);
+        try {
+            business = ConfigureABusiness.initialize();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PricingMainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
     public void insert(JPanel jpanel) {
-
+        
     }
 
     /**
@@ -173,6 +182,16 @@ public class PricingMainFrame extends javax.swing.JFrame {
                 new PricingMainFrame().setVisible(true);
             }
         });
+        
+        //small sanity check to confirm if different objects will return true if their arguments are same;
+//    Market m1 =new Market("m1");
+//    Market m2 =new Market("m1");
+//    if(m1 == m2) {
+//        System.out.println("True");
+//    } else {
+//        System.out.println("false");
+//    }
+    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

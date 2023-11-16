@@ -43,7 +43,7 @@ public class Business {
     UserAccountDirectory useraccountdirectory;
     MarketingPersonDirectory marketingpersondirectory;
     MasterSolutionOrderList mastersolutionorderlist;
-
+    
 
     public Business(String n) {
         name = n;

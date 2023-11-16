@@ -34,6 +34,10 @@ import TheBusiness.Supplier.Supplier;
 import TheBusiness.Supplier.SupplierDirectory;
 import TheBusiness.UserAccountManagement.UserAccount;
 import TheBusiness.UserAccountManagement.UserAccountDirectory;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -157,52 +161,127 @@ class ConfigureABusiness {
 
     }
 
-    static Business initializeMarkets() {
+    static Business initializeMarkets() throws FileNotFoundException {
         Business business = new Business("Xerox");
 
 // Create Persons
         PersonDirectory persondirectory = business.getPersonDirectory();
-// person representing sales organization        
-        Person xeroxsalesperson001 = persondirectory.newPerson("Xerox sales");
-        Person xeroxmarketingperson001 = persondirectory.newPerson("Xerox marketing");
+         CustomerDirectory customedirectory = business.getCustomerDirectory();
+       
+// person representing sales organization -------- reading from a file   
+        String customerDirectoryFilePath = "customer - Sheet1.csv";
+        File file = new File(customerDirectoryFilePath);
+        try(Scanner scanner = new Scanner(file)) {
+            while(scanner.hasNextLine()) {
+                String nextLine = scanner.nextLine();
+                String[] lineColumns= nextLine.split(",");
+                  Person person001 = persondirectory.newPerson(lineColumns[0]);
+                  CustomerProfile customerprofile1 = customedirectory.newCustomerProfile(person001);
+        
+                 }
+             System.out.println("Finished Customer");   
+
+//            }     
+        }
+//        Person xeroxsalesperson001 = persondirectory.newPerson("Xerox sales");
+//        Person xeroxmarketingperson001 = persondirectory.newPerson("Xerox marketing");
+//        Person person006 = persondirectory.newPerson("Microsoft");
+//        Person person007 = persondirectory.newPerson("Google");
+//        Person person008 = persondirectory.newPerson("JP Morgan");
+//        Person person009 = persondirectory.newPerson("State street"); //we use this as customer
 
 // Create Customers
-        CustomerDirectory customedirectory = business.getCustomerDirectory();
-        CustomerProfile customerprofile1
-                = customedirectory.newCustomerProfile(xeroxsalesperson001);
+//        CustomerProfile customerprofile1 = customedirectory.newCustomerProfile(xeroxsalesperson001);
+//        CustomerProfile customerprofile2 = customedirectory.newCustomerProfile(person006);
+//        CustomerProfile customerprofile3 = customedirectory.newCustomerProfile(person007);
+//        CustomerProfile customerprofile4 = customedirectory.newCustomerProfile(person008);
+//        CustomerProfile customerprofile5 = customedirectory.newCustomerProfile(person009);
 
-// Create Sales people
+// Create Sales people ---- reading from salesPeople file
         SalesPersonDirectory salespersondirectory = business.getSalesPersonDirectory();
-        SalesPersonProfile salespersonprofile = salespersondirectory.newSalesPersonProfile(xeroxsalesperson001);
+          String salesPeopleFilePath = "salesPeople- Sheet1.csv";
+        File salesFile = new File(salesPeopleFilePath);
+        try(Scanner scanner = new Scanner(salesFile)) {
+            while(scanner.hasNextLine()) {
+                String nextLine = scanner.nextLine();
+                String[] lineColumns= nextLine.split(",");
+                  Person person001 = persondirectory.newPerson(lineColumns[0]);
+                   SalesPersonProfile salespersonprofile = salespersondirectory.newSalesPersonProfile(person001);
+        
+                 }
+             System.out.println("Finished Sales People");   
 
-        // Create Marketing people
+//            }     
+        }
+//        SalesPersonProfile salespersonprofile = salespersondirectory.newSalesPersonProfile(xeroxsalesperson001);
+
+        // Create Marketing people ------- reading from marketingPeople file
         MarketingPersonDirectory marketingpersondirectory = business.getMarketingPersonDirectory();
-        MarketingPersonProfile marketingpersonprofile0 = marketingpersondirectory.newMarketingPersonProfile(xeroxmarketingperson001);
+        String marketingPeopleFilePath = "marketingPeople- Sheet1.csv";
+        File marketingPeopleFile = new File(marketingPeopleFilePath);
+        try(Scanner scanner = new Scanner(marketingPeopleFile)) {
+            while(scanner.hasNextLine()) {
+                String nextLine = scanner.nextLine();
+                String[] lineColumns= nextLine.split(",");
+                  Person person001 = persondirectory.newPerson(lineColumns[0]);
+                   MarketingPersonProfile marketingpersonprofile0 = marketingpersondirectory.newMarketingPersonProfile(person001);
+        
+                 }
+             System.out.println("Finished Marketing People");   
+
+//            }     
+        }
+        
+        
+//        MarketingPersonProfile marketingpersonprofile0 = marketingpersondirectory.newMarketingPersonProfile(xeroxmarketingperson001);
 
         SupplierDirectory suplierdirectory = business.getSupplierDirectory();
-
-        Supplier supplier1 = suplierdirectory.newSupplier("Lenovo");
-        ProductCatalog productcatalog = supplier1.getProductCatalog();
-        Product products1p1 = productcatalog.newProduct("Scanner 3  1", 2000, 16500, 10000);
-        Product products1p2 = productcatalog.newProduct("Scanner 4", 10000, 25000, 16500);
-        Product products1p3 = productcatalog.newProduct("Printer 2", 22000, 40000, 36500);
-        Product products1p4 = productcatalog.newProduct("Photocopier 2 ", 30000, 70000, 50000);
-        Product products1p5 = productcatalog.newProduct("Scanner  5", 19000, 36500, 25000);
-        Product products1p6 = productcatalog.newProduct("Scanner 6", 90000, 125000, 105000);
-        Product products1p7 = productcatalog.newProduct("Printer 3", 22000, 60000, 36500);
-        Product products1p8 = productcatalog.newProduct("Photocopier 3", 30000, 70000, 50000);
-
-        //       SupplierDirectory suplierdirectory = business.getSupplierDirectory();
-        Supplier supplier2 = suplierdirectory.newSupplier("Epson");
-        productcatalog = supplier2.getProductCatalog();
-        Product products2p1 = productcatalog.newProduct("Scanner 13  1", 12000, 26000, 18500);
-        Product products2p2 = productcatalog.newProduct("Scanner 14", 90000, 165000, 125000);
-        Product products2p3 = productcatalog.newProduct("Color Printer 112", 422000, 540000, 495000);
-        Product products2p4 = productcatalog.newProduct("Photocopier 922 ", 430000, 890000, 550000);
-        Product products2p5 = productcatalog.newProduct("Low toner Scanner  102", 195000, 500100, 365102);
-        Product products2p6 = productcatalog.newProduct("Speedy color Scanner 611", 900000, 125000, 1650000);
-        Product products2p7 = productcatalog.newProduct("Premier Printer 300", 322000, 470000, 736500);
-        Product products2p8 = productcatalog.newProduct("Color Photocopier 500", 350000, 580000, 780000);
+        Supplier supplier1 =null;
+        ProductCatalog productcatalog = null;
+        //read products from a file
+        String productPath = "SUPPLIER-Sheet1.csv";
+        File productFile = new File(productPath);
+        try(Scanner scanner = new Scanner(productFile)) {
+            while(scanner.hasNextLine()) {
+                String nextLine = scanner.nextLine();
+                String[] lineColumns= nextLine.split(",");
+               if(lineColumns[0].isBlank()){
+//                   System.out.println("blank");
+         supplier1 = suplierdirectory.newSupplier(lineColumns[2]);
+          productcatalog = supplier1.getProductCatalog();
+        
+               } else {
+                 Product products1p1 = productcatalog.newProduct(lineColumns[0],
+                         Integer.parseInt(lineColumns[1]),
+                         Integer.parseInt(lineColumns[2]),
+                         Integer.parseInt(lineColumns[3]));
+        
+               }
+                System.out.println("Finished");               
+            }
+        }
+//        Supplier supplier1 = suplierdirectory.newSupplier("Lenovo");
+//        ProductCatalog productcatalog = supplier1.getProductCatalog();
+//        Product products1p1 = productcatalog.newProduct("Scanner 3  1", 2000, 16500, 10000);
+//        Product products1p2 = productcatalog.newProduct("Scanner 4", 10000, 25000, 16500);
+//        Product products1p3 = productcatalog.newProduct("Printer 2", 22000, 40000, 36500);
+//        Product products1p4 = productcatalog.newProduct("Photocopier 2 ", 30000, 70000, 50000);
+//        Product products1p5 = productcatalog.newProduct("Scanner  5", 19000, 36500, 25000);
+//        Product products1p6 = productcatalog.newProduct("Scanner 6", 90000, 125000, 105000);
+//        Product products1p7 = productcatalog.newProduct("Printer 3", 22000, 60000, 36500);
+//        Product products1p8 = productcatalog.newProduct("Photocopier 3", 30000, 70000, 50000);
+//
+//        //       SupplierDirectory suplierdirectory = business.getSupplierDirectory();
+//        Supplier supplier2 = suplierdirectory.newSupplier("Epson");
+//        productcatalog = supplier2.getProductCatalog();
+//        Product products2p1 = productcatalog.newProduct("Scanner 13  1", 12000, 26000, 18500);
+//        Product products2p2 = productcatalog.newProduct("Scanner 14", 90000, 165000, 125000);
+//        Product products2p3 = productcatalog.newProduct("Color Printer 112", 422000, 540000, 495000);
+//        Product products2p4 = productcatalog.newProduct("Photocopier 922 ", 430000, 890000, 550000);
+//        Product products2p5 = productcatalog.newProduct("Low toner Scanner  102", 195000, 500100, 365102);
+//        Product products2p6 = productcatalog.newProduct("Speedy color Scanner 611", 900000, 125000, 1650000);
+//        Product products2p7 = productcatalog.newProduct("Premier Printer 300", 322000, 470000, 736500);
+//        Product products2p8 = productcatalog.newProduct("Color Photocopier 500", 350000, 580000, 780000);
 
 //=============== Define markets and channels...
 
@@ -222,23 +301,73 @@ class ConfigureABusiness {
 
         MarketChannelAssignment tvchannelteenmarket = mccc.newMarketChannelCombo(teenmarket, tvchannel);
         MarketChannelAssignment webchannelteenmarket = mccc.newMarketChannelCombo(teenmarket, webchannel);
+        
 
         SolutionOfferCatalog solutionoffercatalog = business.getSolutionOfferCatalog();
 
-        SolutionOffer solutiontvteen = solutionoffercatalog.newSolutionOffer(tvchannelteenmarket);
-        solutiontvteen.addProduct(products2p2);
-        solutiontvteen.addProduct(products2p1);
-        solutiontvteen.setTotalPrice(1000);
-
-        SolutionOffer solutionwebteen = solutionoffercatalog.newSolutionOffer(webchannelteenmarket);
-        solutionwebteen.addProduct(products2p2);
-        solutionwebteen.addProduct(products2p1);
-        solutionwebteen.setTotalPrice(500);
+//        reading solution offers from a file
+        String solutionOfferFilePath = "productFile.csv";
+        File solutionOfferFile = new File(solutionOfferFilePath);
+        SolutionOffer solutionOffer = null;
+        try(Scanner scanner = new Scanner(solutionOfferFile)) {
+            while(scanner.hasNextLine()){
+                String nextLine = scanner.nextLine();
+                String[] lineColumns = nextLine.split(",");
+                if(lineColumns[0].isBlank()) { // start of a new solution offer
+                    //retrieve the provided channelMarketString and check if it is present in MarketChannelCatalog                    
+                    String channelMarketString = lineColumns[2];
+                    for(int i =0;i< mccc.getMcalist().size();i++) {
+                        MarketChannelAssignment mca = mccc.getMcalist().get(i);
+                        if(mca.getMarket().getName().equals(lineColumns[1]) && mca.getChannel().getChannelType().equals(lineColumns[2])){
+                             solutionOffer =solutionoffercatalog.newSolutionOffer(mca);
+                             //check if cost is in integers
+                             try {
+                                 Integer.parseInt(lineColumns[3]);
+                             } catch (NumberFormatException e) {
+                                 System.out.println("Number not present in the productFile");
+                                 break;
+                             }
+                             solutionOffer.setTotalPrice(Integer.parseInt(lineColumns[3]));
+                            
+                        } else if( i < mccc.getMcalist().size() -1) {
+                            System.out.println("Market Channel Assignment not found");
+//                            JOptionPane.showMessageDialog(this,"Please check business Configuration");
+                        }
+                    }
+                } else {                        // product name, to be added to the above solution offer
+                    String productName = lineColumns[0];
+                    outerloop:
+                    for (int i = 0 ; i< business.getSupplierDirectory().getSuplierList().size();i ++) {
+                        Supplier supplier = business.getSupplierDirectory().getSuplierList().get(i);
+                        ProductCatalog supplierProductCatalog = supplier.getProductCatalog();
+                        for (int j =0; i < supplierProductCatalog.getProductList().size();j++) {
+                            Product product = supplierProductCatalog.getProductList().get(j);
+                            if(lineColumns[0].equals(product.toString())){
+                                solutionOffer.addProduct(product);
+                                break outerloop;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+//        SolutionOffer solutiontvteen = solutionoffercatalog.newSolutionOffer(tvchannelteenmarket);
+//        solutiontvteen.addProduct(products2p2);
+//        solutiontvteen.addProduct(products2p1);
+//        solutiontvteen.setTotalPrice(1000);
+//
+//        SolutionOffer solutionwebteen = solutionoffercatalog.newSolutionOffer(webchannelteenmarket);
+//        solutionwebteen.addProduct(products2p2);
+//        solutionwebteen.addProduct(products2p1);
+//        solutionwebteen.setTotalPrice(500);
 
         MasterSolutionOrderList msol = business.getMasterSolutionOrderList();
 
-        SolutionOrder so = msol.newSolutionOrder(solutiontvteen, tvchannelteenmarket);
+        // reading solutionOrders from a file
+        String solutionOrderFilePath ="";
         
+        SolutionOrder so = msol.newSolutionOrder(solutiontvteen, tvchannelteenmarket);
         SolutionOrder so2 = msol.newSolutionOrder(solutionwebteen, webchannelteenmarket);
         
         msol.getRevenueByMarketChannelCombo(tvchannelteenmarket);
