@@ -340,7 +340,7 @@ class ConfigureABusiness {
                     for (int i = 0 ; i< business.getSupplierDirectory().getSuplierList().size();i ++) {
                         Supplier supplier = business.getSupplierDirectory().getSuplierList().get(i);
                         ProductCatalog supplierProductCatalog = supplier.getProductCatalog();
-                        for (int j =0; i < supplierProductCatalog.getProductList().size();j++) {
+                        for (int j =0; j < supplierProductCatalog.getProductList().size();j++) {
                             Product product = supplierProductCatalog.getProductList().get(j);
                             if(lineColumns[0].equals(product.toString())){
                                 solutionOffer.addProduct(product);
