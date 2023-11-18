@@ -5,6 +5,7 @@
  */
 package TheBusiness.SolutionOrders;
 
+import TheBusiness.CustomerManagement.CustomerProfile;
 import TheBusiness.MarketModel.MarketChannelAssignment;
 import TheBusiness.MarketModel.SolutionOffer;
 
@@ -16,7 +17,7 @@ import TheBusiness.MarketModel.SolutionOffer;
 public class SolutionOrder {
     
     SolutionOffer selectedsolutionoffer;
-  //  CustomerProfile customerprofile;
+    CustomerProfile customerprofile;
     MarketChannelAssignment marketChannelAssignment; 
     public SolutionOrder(SolutionOffer so,  MarketChannelAssignment mca){
         selectedsolutionoffer = so;
@@ -31,6 +32,11 @@ public class SolutionOrder {
         
         return marketChannelAssignment;
                 
+    }
+    
+    public boolean isOrderAboveTotalTarget () {
+        selectedsolutionoffer.get
+        
     }
 
    

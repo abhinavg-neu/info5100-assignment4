@@ -10,6 +10,7 @@ import TheBusiness.MarketModel.Market;
 import TheBusiness.OrderManagement.Order;
 import TheBusiness.Personnel.Person;
 import TheBusiness.Personnel.Profile;
+import TheBusiness.SolutionOrders.SolutionOrder;
 
 /**
  *
@@ -17,7 +18,7 @@ import TheBusiness.Personnel.Profile;
  */
 public class CustomerProfile extends Profile {
 
-    ArrayList<Order> orders;
+    ArrayList<SolutionOrder> orders;
     ArrayList<Market> markets;
 
     Person person;
@@ -43,19 +44,19 @@ public class CustomerProfile extends Profile {
         return 0;
     }
 
-    public int getNumberOfOrdersAboveTotalTarget() {
-        //for each order in the customer order list 
-        //calculate if order is positive (actual order total is greater than sum of item targets
-        //if yes then add 1 to total 
-        int sum = 0;
-        for (Order o : orders) {
-            if (o.isOrderAboveTotalTarget() == true) {
-                sum = sum + 1;
-            }
-        }
-
-        return sum;
-    }
+//    public int getNumberOfOrdersAboveTotalTarget() {
+//        //for each order in the customer order list 
+//        //calculate if order is positive (actual order total is greater than sum of item targets
+//        //if yes then add 1 to total 
+//        int sum = 0;
+//        for (SolutionOrder o : orders) {
+//            if (o.isOrderAboveTotalTarget() == true) {
+//                sum = sum + 1;
+//            }
+//        }
+//
+//        return sum;
+//    }
 
     public int getNumberOfOrdersBelowTotalTarget() {
         return 0;
