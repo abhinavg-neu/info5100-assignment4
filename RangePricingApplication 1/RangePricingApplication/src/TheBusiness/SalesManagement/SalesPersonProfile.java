@@ -9,13 +9,14 @@ import java.util.ArrayList;
 import TheBusiness.OrderManagement.Order;
 import TheBusiness.Personnel.Person;
 import TheBusiness.Personnel.Profile;
+import TheBusiness.SolutionOrders.SolutionOrder;
 
 /**
  *
  * @author kal bugrara
  */
 public class SalesPersonProfile extends Profile {
-    ArrayList<Order> salesorders;
+    ArrayList<SolutionOrder> salesorders;
 
 
     public SalesPersonProfile(Person p) {
@@ -24,7 +25,7 @@ public class SalesPersonProfile extends Profile {
         salesorders = new ArrayList();
 
     }
-    public void addSalesOrder(Order o){
+    public void addSalesOrder(SolutionOrder o){
         salesorders.add(o);
     }
     @Override

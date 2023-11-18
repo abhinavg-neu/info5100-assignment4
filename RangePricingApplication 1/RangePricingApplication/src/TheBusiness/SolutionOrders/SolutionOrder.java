@@ -19,10 +19,20 @@ public class SolutionOrder {
     SolutionOffer selectedsolutionoffer;
     CustomerProfile customerprofile;
     MarketChannelAssignment marketChannelAssignment; 
-    public SolutionOrder(SolutionOffer so,  MarketChannelAssignment mca){
+    int sellingPrice;
+    public SolutionOrder(SolutionOffer so,  MarketChannelAssignment mca,int sellingPrice){
         selectedsolutionoffer = so;
         marketChannelAssignment = mca;
+        this.sellingPrice= sellingPrice;
 
+    }
+
+    public int getSellingPrice() {
+        return sellingPrice;
+    }
+
+    public void setSellingPrice(int sellingPrice) {
+        this.sellingPrice = sellingPrice;
     }
     
     public int getSolutionPrice(){
@@ -35,8 +45,8 @@ public class SolutionOrder {
     }
     
     public boolean isOrderAboveTotalTarget () {
-        selectedsolutionoffer.get
-        
+//        selectedsolutionoffer.get
+        return false;
     }
 
    

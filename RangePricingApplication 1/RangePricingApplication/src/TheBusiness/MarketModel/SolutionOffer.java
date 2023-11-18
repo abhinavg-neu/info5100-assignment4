@@ -24,7 +24,10 @@ public class SolutionOffer {
         this.name = name;
     }
     ArrayList<Product> products;
-    int price;//floor, ceiling, and target ideas
+    int targetPrice;
+    int ceilingPrice;
+    int floorPrice;
+    //floor, ceiling, and target ideas
     String ad;
     MarketChannelAssignment marketchannelcomb;
     ArrayList<SolutionOrder> solutionorders;
@@ -41,11 +44,11 @@ public class SolutionOffer {
         products.add(p);
     }
     public void setTotalPrice(int p){
-        price = p;
+        targetPrice = p;
         
     }
     public int getSolutionPrice(){
-        return price;
+        return targetPrice;
     }
     
     public int getRevenues(){
