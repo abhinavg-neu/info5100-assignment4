@@ -28,7 +28,7 @@ public class Order {
     public Order(CustomerProfile cp) {
         orderitems = new ArrayList();
         customer = cp;
-        customer.addCustomerOrder(this); //we link the order to the customer
+//        customer.addCustomerOrder(this); //we link the order to the customer
         salesperson = null;
         status = "in process";
     }
@@ -36,7 +36,7 @@ public class Order {
         orderitems = new ArrayList();
         customer = cp;
         salesperson = ep;
-        customer.addCustomerOrder(this); //we link the order to the customer
+//        customer.addCustomerOrder(this); //we link the order to the customer
 //        salesperson.addSalesOrder(this);  
     }
     public OrderItem newOrderItem(Product p, int actualprice, int q) {

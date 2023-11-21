@@ -44,4 +44,9 @@ public class SolutionOfferCatalog {
 
     }
 
+    public ArrayList<SolutionOffer> getSolutionoffers() {
+        return solutionoffers;
+    }
+    
+
 }

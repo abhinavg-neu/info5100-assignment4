@@ -5,10 +5,12 @@
  */
 package TheBusiness.SolutionOrders;
 
+import TheBusiness.CustomerManagement.CustomerProfile;
 import TheBusiness.MarketModel.Channel;
 import TheBusiness.MarketModel.Market;
 import TheBusiness.MarketModel.MarketChannelAssignment;
 import TheBusiness.MarketModel.SolutionOffer;
+import TheBusiness.SalesManagement.SalesPersonProfile;
 import java.util.ArrayList;
 
 /**
@@ -16,15 +18,23 @@ import java.util.ArrayList;
  * @author kal bugrara
  */
 public class MasterSolutionOrderList {
-        ArrayList<SolutionOrder> solutionorderlist;
 
+    public ArrayList<SolutionOrder> getSolutionorderlist() {
+        return solutionorderlist;
+    }
+        ArrayList<SolutionOrder> solutionorderlist;
+        int size;
     public MasterSolutionOrderList() {
         solutionorderlist = new ArrayList();
+        int size = 0;
     }
 
-    public SolutionOrder newSolutionOrder(SolutionOffer soloffer,  MarketChannelAssignment mca) {
+    public SolutionOrder newSolutionOrder(SolutionOffer soloffer, 
+            MarketChannelAssignment mca,
+            SalesPersonProfile salesPersonProfile,
+            CustomerProfile customerprofile,int sellingPrice) {
 
-        SolutionOrder so = new SolutionOrder(soloffer,   mca);
+        SolutionOrder so = new SolutionOrder(soloffer, mca,salesPersonProfile, customerprofile, sellingPrice, ++size);
         solutionorderlist.add(so);
         soloffer.addSolutionOrder(so);
         return so;

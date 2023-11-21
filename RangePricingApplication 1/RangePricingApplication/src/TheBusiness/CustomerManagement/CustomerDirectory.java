@@ -51,5 +51,10 @@ public class CustomerDirectory {
             customersreport.addCustomerSummary(cs);
         }
         return customersreport; 
-    } 
+    }
+
+    public ArrayList<CustomerProfile> getCustomerlist() {
+        return customerlist;
+    }
+        
 }

@@ -8,6 +8,7 @@ package TheBusiness.SolutionOrders;
 import TheBusiness.CustomerManagement.CustomerProfile;
 import TheBusiness.MarketModel.MarketChannelAssignment;
 import TheBusiness.MarketModel.SolutionOffer;
+import TheBusiness.SalesManagement.SalesPersonProfile;
 
 /**
  *
@@ -20,15 +21,30 @@ public class SolutionOrder {
     CustomerProfile customerprofile;
     MarketChannelAssignment marketChannelAssignment; 
     int sellingPrice;
-    public SolutionOrder(SolutionOffer so,  MarketChannelAssignment mca,int sellingPrice){
+    String name;
+    SalesPersonProfile salesPersonProfile;
+    int q1Sol;
+    
+    public SolutionOrder(SolutionOffer so,  MarketChannelAssignment mca,SalesPersonProfile salesPersonProfile,CustomerProfile customerprofile,int sellingPrice, int size){
         selectedsolutionoffer = so;
         marketChannelAssignment = mca;
         this.sellingPrice= sellingPrice;
-
+        name ="Order"+String.valueOf(size);
+        this.salesPersonProfile = salesPersonProfile;
+        this.customerprofile = customerprofile;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    
     public int getSellingPrice() {
         return sellingPrice;
+    }
+    
+    public int getBestNegotiatedSolution(){
+        return sellingPrice-selectedsolutionoffer.getSolutionPrice();
     }
 
     public void setSellingPrice(int sellingPrice) {

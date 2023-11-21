@@ -306,7 +306,7 @@ class ConfigureABusiness {
         SolutionOfferCatalog solutionoffercatalog = business.getSolutionOfferCatalog();
 
 //        reading solution offers from a file
-        String solutionOfferFilePath = "productFile.csv";
+        String solutionOfferFilePath = "SolutionOffer- Sheet1.csv";
         File solutionOfferFile = new File(solutionOfferFilePath);
         SolutionOffer solutionOffer = null;
         try(Scanner scanner = new Scanner(solutionOfferFile)) {
@@ -318,16 +318,16 @@ class ConfigureABusiness {
                     String channelMarketString = lineColumns[2];
                     for(int i =0;i< mccc.getMcalist().size();i++) {
                         MarketChannelAssignment mca = mccc.getMcalist().get(i);
-                        if(mca.getMarket().getName().equals(lineColumns[1]) && mca.getChannel().getChannelType().equals(lineColumns[2])){
+                        if(mca.getMarket().getName().equals(lineColumns[2]) && mca.getChannel().getChannelType().equals(lineColumns[3])){
                              solutionOffer =solutionoffercatalog.newSolutionOffer(mca);
                              //check if cost is in integers
                              try {
-                                 Integer.parseInt(lineColumns[3]);
+                                 Integer.parseInt(lineColumns[4]);
                              } catch (NumberFormatException e) {
                                  System.out.println("Number not present in the productFile");
                                  break;
                              }
-                             solutionOffer.setTotalPrice(Integer.parseInt(lineColumns[3]));
+                             solutionOffer.setTotalPrice(Integer.parseInt(lineColumns[4]));
                             
                         } else if( i < mccc.getMcalist().size() -1) {
                             System.out.println("Market Channel Assignment not found");
@@ -362,13 +362,20 @@ class ConfigureABusiness {
 //        solutionwebteen.addProduct(products2p1);
 //        solutionwebteen.setTotalPrice(500);
 
-        MasterSolutionOrderList msol = business.getMasterSolutionOrderList();
+            MasterSolutionOrderList msol = business.getMasterSolutionOrderList();
 
         // reading solutionOrders from a file
         String solutionOrderFilePath ="";
         
-        SolutionOrder so = msol.newSolutionOrder(solutiontvteen, tvchannelteenmarket);
-        SolutionOrder so2 = msol.newSolutionOrder(solutionwebteen, webchannelteenmarket);
+        SolutionOrder so = msol.newSolutionOrder(solutionoffercatalog.getSolutionoffers().get(0) ,
+                tvchannelteenmarket,
+                salespersondirectory.getSalespersonlist().get(0),customedirectory.getCustomerlist().get(0),
+                1200);
+        
+        customedirectory.getCustomerlist().get(0).addCustomerOrder(so);
+        salespersondirectory.getSalespersonlist().get(0).addSalesOrder(so);
+        tvchannelteenmarket.addSolutionOrder(so);
+//        SolutionOrder so2 = msol.newSolutionOrder(solutionoffercatalog.getSolutionoffers().get(0) , webchannelteenmarket,500);
         
         msol.getRevenueByMarketChannelCombo(tvchannelteenmarket);
         msol.getRevenueByChannel(tvchannel);
@@ -378,5 +385,4 @@ class ConfigureABusiness {
         return business;
 
     }
-
 }

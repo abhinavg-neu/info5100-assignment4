@@ -72,7 +72,7 @@ public class CustomerProfile extends Profile {
         return false;
     }
 
-    public void addCustomerOrder(Order o) {
+    public void addCustomerOrder(SolutionOrder o) {
         orders.add(o);
     }
 
